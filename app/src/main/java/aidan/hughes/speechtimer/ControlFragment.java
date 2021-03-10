@@ -71,7 +71,7 @@ public class ControlFragment extends Fragment
     public void start()
     {
         if (!running) {
-            timer = new Timer(time, list);
+            timer = new Timer(time, list, list.getTextView());
             timer.execute();
             running = true;
         }

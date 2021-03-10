@@ -13,8 +13,10 @@ public class Timer extends AsyncTask
     int lapHours;
     boolean paused;
     TextView time;
+    TextView listText;
     ListFragment list;
-    public Timer(TextView x, ListFragment y)
+    boolean lap;
+    public Timer(TextView x, ListFragment y, TextView z)
     {
         super();
         seconds = 0;
@@ -25,6 +27,7 @@ public class Timer extends AsyncTask
         lapHours = 0;
         time = x;
         list = y;
+        listText = z;
         paused = false;
     }
 
@@ -56,7 +59,8 @@ public class Timer extends AsyncTask
                     lapMinutes = 0;
                     lapHours++;
                 }
-                this.publishProgress(String.format("%1$02d", hours) + ":" + String.format("%1$02d", minutes) + ":" + String.format("%1$02d", seconds));
+                this.publishProgress(String.format("%1$02d", hours) + ":" + String.format("%1$02d", minutes) + ":" + String.format("%1$02d", seconds), lap);
+                lap = false;
             }
         }
         return null;
@@ -67,6 +71,14 @@ public class Timer extends AsyncTask
     {
         super.onProgressUpdate(values);
         time.setText((String) values[0]);
+        if ((boolean) values[1])
+        {
+            listText.setText(list.getText());
+        }
+        else
+        {
+            listText.setText(list.onRotation());
+        }
     }
 
     @Override
@@ -80,10 +92,12 @@ public class Timer extends AsyncTask
         lapMinutes = 0;
         lapHours = 0;
         time.setText("00:00:00");
+        listText.setText(list.getText());
     }
 
     public void lap()
     {
+        lap = true;
         list.lap(String.format("%1$02d", lapHours) + ":" + String.format("%1$02d", lapMinutes) + ":" + String.format("%1$02d", lapSeconds));
     }
 

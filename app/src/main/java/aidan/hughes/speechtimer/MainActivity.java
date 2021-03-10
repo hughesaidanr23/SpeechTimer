@@ -8,85 +8,100 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity
 {
-    private boolean frag = true;
+    private boolean frag = false;
     private FragmentManager fm;
     private FragmentTransaction ft;
     private ListFragment list;
     private ControlFragment control;
     private Button swap;
     private boolean landscape;
-    FrameLayout controlFrame;
-    FrameLayout frame;
-    FrameLayout listFrame;
+    private FrameLayout frame;
+    private FrameLayout frame2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        controlFrame = (FrameLayout) findViewById(R.id.controlFrag);
-        listFrame = (FrameLayout) findViewById(R.id.listFrag);
+        if (savedInstanceState == null)
+        {
+            initialize();
+        }
+    }
+
+    public void initialize()
+    {
+        frag = false;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+        {
+            landscape = false;
+        }
+        else
+        {
+            landscape = true;
+        }
         frame = (FrameLayout) findViewById(R.id.frame);
+        frame2 = (FrameLayout) findViewById(R.id.frame2);
         swap = (Button) findViewById(R.id.swap);
         swap.setText(">>>");
         fm = getSupportFragmentManager();
-        ft = fm.beginTransaction();
         list = new ListFragment();
-        ft.replace(R.id.frame, list);
+        ft = fm.beginTransaction();
+        ft.replace(R.id.frame2, list);
         ft.commit();
         control = new ControlFragment(list);
-        switchFragment();
+        ft = fm.beginTransaction();
+        ft.replace(R.id.frame, control);
+        ft.commit();
+        frame2.setVisibility(View.INVISIBLE);
         swap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchFragment();
+                    switchFragment();
             }
         });
-        landscape = false;
-        //changeOrientation();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+        landscape = !landscape;
+        if (landscape)
+        {
+            swap.setVisibility(View.INVISIBLE);
+            frame.setVisibility(View.VISIBLE);
+            frame2.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            frag = !frag;
+            switchFragment();
+            swap.setVisibility(View.VISIBLE);
+        }
     }
 
     public void switchFragment()
     {
-        ft = fm.beginTransaction();
-        if (!frag) {
-            ft.replace(R.id.frame, list);
-            swap.setText("<<<");
-        } else {
-            ft.replace(R.id.frame, control);
-            swap.setText(">>>");
-        }
-        ft.commit();
-        frag = !frag;
-    }
-
-    public void changeOrientation()
-    {
-        if (landscape)
+        if (!frag)
         {
-            ft = fm.beginTransaction();
-            ft.replace(R.id.controlFrag, control);
-            ft.commit();
-            ft = fm.beginTransaction();
-            ft.replace(R.id.listFrag, list);
-            ft.commit();
             frame.setVisibility(View.INVISIBLE);
-            controlFrame.setVisibility(View.VISIBLE);
-            listFrame.setVisibility(View.VISIBLE);
+            frame2.setVisibility(View.VISIBLE);
+            swap.setText("<<<");
+
         }
         else
         {
-            switchFragment();
+            swap.setText(">>>");
+            frame2.setVisibility(View.INVISIBLE);
             frame.setVisibility(View.VISIBLE);
-            controlFrame.setVisibility(View.INVISIBLE);
-            listFrame.setVisibility(View.INVISIBLE);
         }
+        frag = !frag;
     }
 }

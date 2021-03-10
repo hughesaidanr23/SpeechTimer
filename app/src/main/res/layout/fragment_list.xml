@@ -8,10 +8,12 @@
 
     <TextView
         android:id="@+id/control"
-        android:layout_width="342dp"
-        android:layout_height="674dp"
+        android:layout_width="236dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginBottom="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,9 +21,9 @@
         android:id="@+id/lapList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="238dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="9dp"
+        app:layout_constraintStart_toStartOf="@+id/control"
+        app:layout_constraintTop_toTopOf="@+id/control" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

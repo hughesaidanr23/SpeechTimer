@@ -10,8 +10,8 @@
         android:id="@+id/control"
         android:layout_width="330dp"
         android:layout_height="287dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="205dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

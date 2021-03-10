@@ -6,53 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/swap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="159dp"
-        android:layout_marginTop="85dp"
-        android:layout_marginEnd="330dp"
-        android:layout_marginBottom="14dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/frame"
-        app:layout_constraintEnd_toStartOf="@+id/listFrag"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/frame"
         android:name="aidan.hughes.speechtimer.ListFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="171dp"
+        android:layout_marginEnd="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/listFrag"
+        app:layout_constraintEnd_toStartOf="@+id/frame2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/swap"></FrameLayout>
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/controlFrag"
+        android:id="@+id/frame2"
         android:name="aidan.hughes.speechtimer.ControlFragment"
-        android:layout_width="228dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="63dp"
-        android:layout_marginBottom="63dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <FrameLayout
-        android:id="@+id/listFrag"
-        android:name="aidan.hughes.speechtimer.ListFragment"
         android:layout_width="0dp"
-        android:layout_height="193dp"
-        android:layout_marginEnd="42dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/swap"
+        app:layout_constraintStart_toEndOf="@+id/frame"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/swap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
